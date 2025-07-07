@@ -1,0 +1,5 @@
+fifo.sv
+fifo_tb.sv
+--trace
+-Wall
+--timing
