@@ -6,12 +6,12 @@ module fifo #(parameter depth_bw=4, parameter data_bw=4) (
     output empty, 
     output full);
 
-    reg [data_bw-1:0] fifo [1<<depth_bw];
+    reg [data_bw-1:0] fifo_mem [1<<depth_bw];
 
     reg [depth_bw:0] rd_ptr;
     reg [depth_bw:0] wr_ptr;
 
-    assign rdata = fifo[rd_ptr[depth_bw-1:0]];
+    assign rdata = fifo_mem[rd_ptr[depth_bw-1:0]];
 
     assign empty = (rd_ptr == wr_ptr);
     assign full = (rd_ptr[depth_bw-1:0] == wr_ptr[depth_bw-1:0] && rd_ptr[depth_bw] != wr_ptr[depth_bw]);
@@ -26,7 +26,7 @@ module fifo #(parameter depth_bw=4, parameter data_bw=4) (
                 rd_ptr <= rd_ptr + 1;
             end
             if (wen && !full) begin
-                fifo[wr_ptr[depth_bw-1:0]] <= wdata;
+                fifo_mem[wr_ptr[depth_bw-1:0]] <= wdata;
                 wr_ptr <= wr_ptr + 1;
             end
         end
