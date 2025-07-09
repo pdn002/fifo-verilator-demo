@@ -1,4 +1,4 @@
-.PHONY: all verilate compile simulate wave
+.PHONY: all verilate compile simulate wave clean
 
 all: simulate
 
