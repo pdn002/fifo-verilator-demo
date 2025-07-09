@@ -1,5 +1,6 @@
 fifo.sv
-fifo_tb.sv
+// fifo_tb.sv
+fifo_tb.cpp
 --trace
 -Wall
 --timing

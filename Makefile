@@ -3,7 +3,7 @@
 all: simulate
 
 verilate: fifo.sv fifo_tb.cpp
-	verilator -Wall --trace  --cc fifo.sv --exe fifo_tb.cpp
+	verilator --cc --exe -f filelist
 
 compile: verilate
 	make -C obj_dir -f Vfifo.mk Vfifo
