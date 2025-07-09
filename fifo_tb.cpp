@@ -5,6 +5,8 @@
 #include "Vfifo.h"
 #include "Vfifo___024root.h"
 
+using namespace std;
+
 #define MAX_SIM_TIME 20
 vluint64_t sim_time = 0;
 
@@ -16,6 +18,8 @@ int main(int argc, char** argv, char** env){
     fifo_1->wen = 0;
     fifo_1->ren = 0;
     fifo_1->wdata = 0;
+    fifo_1->eval();
+    m_trace->dump(sim_time);
 
     Verilated::traceEverOn(true);
     VerilatedVcdC *m_trace = new VerilatedVcdC;
@@ -55,9 +59,9 @@ int main(int argc, char** argv, char** env){
         fifo_1->clk = 0;
         fifo_1->wen = 1;
         fifo_1->wdata = i;
-        printf("writing %d\n", i);
+        cout << "writing " << i << endl;
         if (fifo_1->full) {
-            printf("fifo is full\n");
+            cout << "fifo is full" << endl;
         }
         fifo_1->eval();
         m_trace->dump(sim_time);
@@ -81,9 +85,9 @@ int main(int argc, char** argv, char** env){
         sim_time++;
         fifo_1->clk = 0;
         fifo_1->ren = 1;
-        printf("read %d\n", fifo_1->rdata);
+        cout << "writing " << (int)(fifo_1->rdata) << endl;
         if (fifo_1->empty) {
-            printf("fifo is empty\n");
+            cout << "fifo is full" << endl;
         }
         fifo_1->eval();
         m_trace->dump(sim_time);
