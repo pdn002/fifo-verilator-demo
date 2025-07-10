@@ -1,4 +1,4 @@
-# FIFO Verilator Project
+# FIFO Verilator Demo
 
 ## About
 The main goal of this project is to learn the basics of Verilator by applying using it to simulate a simple fifo. <br>
