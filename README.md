@@ -50,7 +50,7 @@ oss-cad-suite/share/verilator/include
 - The C/C++ extension on github give a linting warning when including the verilator libraries inside the C++ testbench
     - To fix this include the path of the verilator libraries to a JSON file (the exact steps are found is [this guide](https://code.visualstudio.com/docs/cpp/configure-intellisense))
 - Module parameters cannot be modified by the C++ testbench at runtime.
-    - Module parameters can only be added to C++ testbench for reading using the /* verilator public */ tag
+    - Module parameters can only be added to C++ testbench for reading using the /* verilator public */ tag which will create a new header file with the parameter as a static variable
     ```
     // inside fifo.sv
     module fifo #(parameter depth_bw/*verilator public*/=4, parameter data_bw=4)
