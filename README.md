@@ -49,6 +49,18 @@ oss-cad-suite/share/verilator/include
     - More detailed documentation on arguments [here](https://verilator.org/guide/latest/exe_verilator.html)
 - The C/C++ extension on github give a linting warning when including the verilator libraries inside the C++ testbench
     - To fix this include the path of the verilator libraries to a JSON file (the exact steps are found is [this guide](https://code.visualstudio.com/docs/cpp/configure-intellisense))
+- Module parameters cannot be modified by the C++ testbench at runtime.
+    - Module parameters can only be added to C++ testbench for reading using the /* verilator public */ tag
+    ```
+    // inside fifo.sv
+    module fifo #(parameter depth_bw/*verilator public*/=4, parameter data_bw=4)
+
+    // inside fifo_tb.cpp
+    #include "Vfifo_fifo.h"
+    ...
+    int depth_bw = Vfifo_fifo::depth_bw;
+    ```
+    - Only way module parameter can be modified is before the SystemVerilog code has been translated to C++ using the -G option
 
 ## Useful Guides
 - [VERILATOR Introduction Video](https://www.youtube.com/watch?v=ALuaCai1W_0)
