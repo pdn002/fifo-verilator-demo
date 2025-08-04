@@ -4,15 +4,23 @@
 The main goal of this project is to learn the basics of Verilator by applying using it to simulate a simple fifo. <br>
 
 - fifo.sv is the top module and the only module in the design
-- fifo_tb.sv is a SystemVerilog testbench for the fifo design
 - fifo_tb.cpp is a C++ testbench for the fifo design
+- fifo_tb.sv is a SystemVerilog testbench for the fifo design
+- fifo_tb_wrap.cpp is a C++ wrapper used for running the SystemVerilog testbench above
 <br>
 
 By default the fifo_tb.cpp testbench is used for testing instead of the fifo_tb.sv testbench. <br>
-To simulate the design and generate a vcd file simply run the Makefile with the follwoing command. <br>
+There is also a second option to simulate the fifo using the the System Verilog testbench with a C++ wrapper. The second option also demonstrates how parallel initial blocks can continue to be used in System Verilog even when starting with a C++ testbench.
+<br> <br>
+Option 1: Simulate with fifo_tb.cpp testbench
 ```
 make
 ```
+Option 2: Simulate with fifo_tb.sv tesbench that uses fifo_tb_wrap.cpp as a wrapper.
+```
+make wrap
+```
+
 The waveform can be viewed using GTKWave with the following command. <br>
 ```
 make wave
@@ -61,6 +69,7 @@ oss-cad-suite/share/verilator/include
     int depth_bw = Vfifo_fifo::depth_bw;
     ```
     - Only way module parameter can be modified is before the SystemVerilog code has been translated to C++ using the -G option
+- The key to getting the C++ wrapper option to work was using the timeInc(1) method from the VerilatedContext() class in order to be able to advance simulation time from the C++ wrapper. This allows simulation to advance past delay statements in the SV initial blocks
 
 ## Useful Guides
 - [VERILATOR Introduction Video](https://www.youtube.com/watch?v=ALuaCai1W_0)

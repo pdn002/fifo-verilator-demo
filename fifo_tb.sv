@@ -7,6 +7,8 @@ module fifo_tb;
 
     integer i;
 
+    logic done;
+
 
     fifo #() fifo_1 (
         .clk(clk), .reset(reset), 
@@ -17,16 +19,26 @@ module fifo_tb;
     );
 
     initial begin
+        wait(done);
+        $display("\nTestbench done\n");
+        #20 $finish;
+    end
+
+    initial begin
         clk = 0;
         reset = 0;
         wen = 0;
         ren = 0;
         din = 0;
+        done = 0;
 
         $dumpfile("fifo_tb.vcd");
         $dumpvars(0, fifo_tb);
 
+        $display("here 1\n");
+
         #5 clk = 0;
+        $display("here 2\n");
         reset = 1;
         #5 clk = 1;
 
@@ -68,7 +80,7 @@ module fifo_tb;
         ren = 0;
         #5 clk = 1;
 
-        #20 $finish;
+        done = 1;
 
     end
 endmodule
