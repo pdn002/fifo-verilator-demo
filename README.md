@@ -69,6 +69,9 @@ oss-cad-suite/share/verilator/include
     int depth_bw = Vfifo_fifo::depth_bw;
     ```
     - Only way module parameter can be modified is before the SystemVerilog code has been translated to C++ using the -G option
+- Signals and ports of deeper submodules can be accessed and modified from a C++ testbench
+   - One was is adding the /* verilator public */ tag to the desired signals in the verilog files. There are a few examples in the C++ wrapper testbench.
+   - Another way is to use the --public or --public-flat-rw verilator arguments which will mark all signals and/or ports as public. Look up online or read documentation for more specifics.
 - The key to getting the C++ wrapper option to work was using the timeInc(1) method from the VerilatedContext() class in order to be able to advance simulation time from the C++ wrapper. This allows simulation to advance past delay statements in the SV initial blocks
 
 ## Useful Guides

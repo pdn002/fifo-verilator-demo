@@ -1,15 +1,15 @@
 module fifo #(parameter depth_bw=4, parameter data_bw=4) (
     input clk, reset, 
     input wen, ren, 
-    input [data_bw-1:0] wdata, 
+    input [data_bw-1:0] wdata /* verilator public */, 
     output [data_bw-1:0] rdata, 
     output empty, 
     output full);
 
     reg [data_bw-1:0] fifo_mem [1<<depth_bw];
 
-    reg [depth_bw:0] rd_ptr;
-    reg [depth_bw:0] wr_ptr;
+    reg [depth_bw:0] rd_ptr /* verilator public */;
+    reg [depth_bw:0] wr_ptr /* verilator public */;
 
     assign rdata = fifo_mem[rd_ptr[depth_bw-1:0]];
 

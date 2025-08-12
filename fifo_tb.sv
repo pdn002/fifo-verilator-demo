@@ -35,10 +35,7 @@ module fifo_tb;
         $dumpfile("fifo_tb.vcd");
         $dumpvars(0, fifo_tb);
 
-        $display("here 1\n");
-
         #5 clk = 0;
-        $display("here 2\n");
         reset = 1;
         #5 clk = 1;
 
